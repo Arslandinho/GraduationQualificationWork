@@ -1,0 +1,56 @@
+Op#0 has a duration = 16.1. Jobs, related to this operation: 8.0, 8.0, 0.1, 
+Op#1 has a duration = 24.8. Jobs, related to this operation: 8.0, 8.0, 8.0, 0.8, 
+Op#2 has a duration = 8.3. Jobs, related to this operation: 8.0, 0.3, 
+Op#3 has a duration = 10.3. Jobs, related to this operation: 8.0, 2.3, 
+Op#4 has a duration = 26.4. Jobs, related to this operation: 8.0, 8.0, 8.0, 2.4, 
+Op#5 has a duration = 10.8. Jobs, related to this operation: 8.0, 2.8, 
+Op#6 has a duration = 19.3. Jobs, related to this operation: 8.0, 8.0, 3.3, 
+Op#7 has a duration = 26.1. Jobs, related to this operation: 8.0, 8.0, 8.0, 2.1, 
+Op#8 has a duration = 19.7. Jobs, related to this operation: 8.0, 8.0, 3.7, 
+Op#9 has a duration = 18.2. Jobs, related to this operation: 8.0, 8.0, 2.2, 
+Op#10 has a duration = 9.3. Jobs, related to this operation: 8.0, 1.3, 
+Op#11 has a duration = 17.7. Jobs, related to this operation: 8.0, 8.0, 1.7, 
+Op#12 has a duration = 17.4. Jobs, related to this operation: 8.0, 8.0, 1.4, 
+
+Amount of work centers generated: 7
+Work center #1 has 5 machines
+Operations that are done in this work center:
+Op#2 [8.0, 0.3, ]
+Op#10 [8.0, 1.3, ]
+
+
+Work center #2 has 5 machines
+Operations that are done in this work center:
+Op#3 [8.0, 2.3, ]
+Op#5 [8.0, 2.8, ]
+
+
+Work center #3 has 5 machines
+Operations that are done in this work center:
+Op#0 [8.0, 8.0, 0.1, ]
+Op#12 [8.0, 8.0, 1.4, ]
+
+
+Work center #4 has 5 machines
+Operations that are done in this work center:
+Op#11 [8.0, 8.0, 1.7, ]
+Op#9 [8.0, 8.0, 2.2, ]
+
+
+Work center #5 has 5 machines
+Operations that are done in this work center:
+Op#6 [8.0, 8.0, 3.3, ]
+Op#8 [8.0, 8.0, 3.7, ]
+
+
+Work center #6 has 4 machines
+Operations that are done in this work center:
+Op#1 [8.0, 8.0, 8.0, 0.8, ]
+Op#7 [8.0, 8.0, 8.0, 2.1, ]
+
+
+Work center #7 has 4 machines
+Operations that are done in this work center:
+Op#4 [8.0, 8.0, 8.0, 2.4, ]
+
+
