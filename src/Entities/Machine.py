@@ -21,3 +21,6 @@ class Machine:
 
     def get_error_probability(self) -> float:
         return self.__error_probability
+
+    def get_operations(self) -> List[Operation]:
+        return self.__operations

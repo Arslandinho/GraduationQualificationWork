@@ -37,7 +37,14 @@ for dpt in departments:
         i += 1
         data_file.write("Operations that are done in this work center:\n")
 
-        for operation in work_center.get_all_operations():
-            data_file.write(str(operation.get_duration()) + ", ")
+        j = 1
+        for machine in work_center.get_all_machines():
+            data_file.write("Machine #" + str(j) + " has operations:\n")
+            j += 1
+
+            for operation in machine.get_operations():
+                data_file.write(str(operation.get_duration()) + ", ")
+
+            data_file.write("\n")
 
         data_file.write("\n\n")
