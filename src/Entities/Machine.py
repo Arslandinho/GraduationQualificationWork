@@ -1,4 +1,6 @@
 # класс Рабочей машины (станка)
+from typing import List
+
 import numpy as np
 
 from src.Entities.Job import Operation
@@ -13,6 +15,9 @@ class Machine:
 
     def add_operation(self, operation: Operation):
         self.__operations.append(operation)
+
+    def add_operations(self, operations: List[Operation]):
+        self.__operations.extend(operations)
 
     def get_error_probability(self) -> float:
         return self.__error_probability

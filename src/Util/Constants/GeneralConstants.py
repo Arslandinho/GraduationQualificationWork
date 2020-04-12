@@ -1,0 +1,3 @@
+class GeneralConstants:
+    PLAN_DISCRETION = 8.0
+    PLAN_PERIOD_LONGITUDE = PLAN_DISCRETION * 30

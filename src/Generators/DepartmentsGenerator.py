@@ -6,7 +6,8 @@ from src.Generators.WorkCentersGenerator import WorkCentersGenerator
 
 
 class DepartmentsGenerator:
-    def __init__(self, operations: List[Operation]):
+    def __init__(self, amount_of_work_centers_to_generate: int, operations: List[Operation]):
+        self.__amount_of_work_centers_to_generate = amount_of_work_centers_to_generate
         self.__operations = operations
 
         self.__generated_departments = []
@@ -15,17 +16,7 @@ class DepartmentsGenerator:
         if self.__generated_departments:
             return self.__generated_departments
         else:
-            centers = WorkCentersGenerator(self.__operations).generate()
+            centers = WorkCentersGenerator(self.__amount_of_work_centers_to_generate, self.__operations).generate()
             self.__generated_departments.append(Department(centers))
-
-            # was right_border
-            # amount_of_departments = int((self.__max_amount_of_departments - self.__min_amount_of_departments) *
-            #                             np.random.random() + self.__min_amount_of_departments)
-            # # amount_of_departments = np.random.randint(self.__min_amount_of_departments, right_board)
-            #
-            # for i in range(amount_of_departments):
-            #     centers = WorkCentersGenerator(self.__max_amount_of_machines_each).generate()
-            #     dpt = Department("{}".format(i), centers)
-            #     self.__generated_departments.append(dpt)
 
             return self.__generated_departments

@@ -2,6 +2,7 @@ from typing import List
 import numpy as np
 
 from src.Entities.Job import Job
+from src.Util.Constants.GeneralConstants import GeneralConstants
 from src.Util.Constants.JobsGeneratorConstants import JobsGeneratorConstants
 
 
@@ -18,12 +19,16 @@ class JobsGenerator:
         if self.__generated_jobs:
             return self.__generated_jobs
         else:
-            jobs_amount = np.random.randint(self.__min_amount_of_jobs, self.__max_amount_of_jobs)
+            jobs_amount = GeneralConstants.PLAN_PERIOD_LONGITUDE
 
-            for i in range(jobs_amount):
+            i = 0
+            while jobs_amount >= GeneralConstants.PLAN_DISCRETION:
                 duration = round((self.__max_duration_time - self.__min_duration_time) * np.random.random()
                                  + self.__min_duration_time, 1)
 
-                self.__generated_jobs.append(Job(duration, "Job #" + str(i)))
+                self.__generated_jobs.append(Job(duration, "Job #" + str(i + 1)))
+
+                i += 1
+                jobs_amount -= GeneralConstants.PLAN_DISCRETION
 
             return self.__generated_jobs

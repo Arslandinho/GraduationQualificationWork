@@ -20,7 +20,7 @@ class Job:
         return self.__operations
 
     def add_operations(self, operations: List[Operation]):
-        self.__operations.append(operations)
+        self.__operations.extend(operations)
 
     def get_name(self) -> str:
         return self.__job_name
