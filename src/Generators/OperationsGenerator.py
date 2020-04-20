@@ -10,7 +10,7 @@ from src.Util.Constants.OperationsGeneratorConstants import OperationsGeneratorC
 
 class OperationsGenerator:
     def __init__(self, jobs: List[Job]):
-        self.__delta_interval = GeneralConstants.PLAN_DISCRETION
+        self.__delta_interval = GeneralConstants.PLAN_DISCRETE
         self.__min_duration = OperationsGeneratorConstants.MIN_DURATION
         self.__max_duration = OperationsGeneratorConstants.MAX_DURATION
 

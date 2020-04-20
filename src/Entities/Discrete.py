@@ -5,10 +5,10 @@ from src.Entities.OperationPartition import OperationPartition
 from src.Util.Constants.GeneralConstants import GeneralConstants
 
 
-class Discretion:
+class Discrete:
     def __init__(self, alpha: float):
         self.__alpha = alpha
-        self.__max_duration = GeneralConstants.PLAN_DISCRETION * self.__alpha
+        self.__max_duration = GeneralConstants.PLAN_DISCRETE * self.__alpha
         self.__used_duration = 0
 
         self.__operations = []
@@ -36,11 +36,11 @@ class Discretion:
             oper_part1 = OperationPartition(last_operation, left_duration).get_new_operation()
             self.__operations.append(oper_part1)
 
-            new_discretion = Discretion(self.__alpha)
+            new_discrete = Discrete(self.__alpha)
             oper_part2 = OperationPartition(last_operation, duration - left_duration).get_new_operation()
             self.__operations.append(oper_part2)
 
-            return [self, new_discretion]
+            return [self, new_discrete]
 
     def get_used_duration(self):
         return self.__used_duration

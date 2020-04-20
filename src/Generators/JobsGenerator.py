@@ -22,13 +22,13 @@ class JobsGenerator:
             jobs_amount = GeneralConstants.PLAN_PERIOD_LONGITUDE
 
             i = 0
-            while jobs_amount >= GeneralConstants.PLAN_DISCRETION:
+            while jobs_amount >= GeneralConstants.PLAN_DISCRETE:
                 duration = round((self.__max_duration_time - self.__min_duration_time) * np.random.random()
                                  + self.__min_duration_time, 1)
 
                 self.__generated_jobs.append(Job(duration, "Job #" + str(i + 1)))
 
                 i += 1
-                jobs_amount -= GeneralConstants.PLAN_DISCRETION
+                jobs_amount -= GeneralConstants.PLAN_DISCRETE
 
             return self.__generated_jobs

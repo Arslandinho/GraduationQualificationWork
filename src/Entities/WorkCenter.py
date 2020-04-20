@@ -1,10 +1,9 @@
 # класс Рабочего центра
 from typing import List
 
-from src.Entities.Discretion import Discretion
+from src.Entities.Discrete import Discrete
 from src.Entities.Machine import Machine
 from src.Entities.Operation import Operation
-from src.Util.Constants.GeneralConstants import GeneralConstants
 
 
 class WorkCenter:
@@ -13,7 +12,7 @@ class WorkCenter:
 
         self.__machines = machines
         self.__operations = operations
-        self.__discretions = []
+        self.__discretes = []
 
         if self.__machines and self.__operations:
             # логика распределения операций по машинам
@@ -31,19 +30,19 @@ class WorkCenter:
             # логика распределения операций по дискретам
             z = 1
             for machine in self.__machines:
-                discretion = Discretion(self.__load_factor)
-                temp_discretions = []
+                discrete = Discrete(self.__load_factor)
+                temp_discretes = []
                 i = 0
                 for operation in machine.get_operations():
-                    lst = discretion.insert_operation(operation)
+                    lst = discrete.insert_operation(operation)
 
-                    temp_discretions.extend(lst)
+                    temp_discretes.extend(lst)
 
                     if i < len(machine.get_operations()) - 1:
-                        discretion = temp_discretions.pop()
+                        discrete = temp_discretes.pop()
                         i += 1
 
-                self.__discretions.append(temp_discretions)
+                self.__discretes.append(temp_discretes)
                 z += 1
 
     def add_machine(self, machine: Machine):
@@ -61,8 +60,8 @@ class WorkCenter:
     def get_load_factor(self) -> float:
         return self.__load_factor
 
-    def get_discretions(self) -> List[List[Discretion]]:
-        return self.__discretions
+    def get_discretes(self) -> List[List[Discrete]]:
+        return self.__discretes
 
-    def get_overall_amount_of_discretions(self) -> int:
-        return len(max(self.__discretions, key=len))
+    def get_overall_amount_of_discretes(self) -> int:
+        return len(max(self.__discretes, key=len))

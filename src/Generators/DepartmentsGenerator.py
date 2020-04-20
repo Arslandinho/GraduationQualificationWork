@@ -12,7 +12,7 @@ class DepartmentsGenerator:
 
         self.__generated_departments = []
 
-    def generate(self):
+    def generate(self) -> List[Department]:
         if self.__generated_departments:
             return self.__generated_departments
         else:

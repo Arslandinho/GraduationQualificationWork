@@ -3,9 +3,7 @@ from numpy import random
 
 from src.Entities.Job import Operation
 from src.Entities.WorkCenter import WorkCenter
-from src.Generators.JobsGenerator import JobsGenerator
 from src.Generators.MachinesGenerator import MachinesGenerator
-from src.Generators.OperationsGenerator import OperationsGenerator
 from src.Util.Constants.WorkCentersGeneratorConstants import WorkCentersGeneratorConstants
 
 
