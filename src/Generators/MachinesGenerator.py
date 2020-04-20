@@ -17,4 +17,3 @@ class MachinesGenerator:
                 self.__generated_machines.append(machine)
 
             return self.__generated_machines
-
