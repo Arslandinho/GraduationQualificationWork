@@ -1,5 +1,4 @@
 from typing import List
-from numpy import random
 
 from src.Entities.Job import Operation
 from src.Entities.WorkCenter import WorkCenter
@@ -8,14 +7,15 @@ from src.Util.Constants.WorkCentersGeneratorConstants import WorkCentersGenerato
 
 
 class WorkCentersGenerator:
-    def __init__(self, amount_to_generate: int, operations: List[Operation]):
+    def __init__(self, amount_to_generate: int, operations: List[Operation], load_factor, insert_type=0):
         self.__amount_to_generate = amount_to_generate
         self.__amount_of_machines_in_each = WorkCentersGeneratorConstants.AMOUNT_OF_MACHINES_IN_EACH
-        self.__load_factor_low_border = WorkCentersGeneratorConstants.LOAD_FACTOR_LOW_BORDER
-        self.__load_factor_high_border = WorkCentersGeneratorConstants.LOAD_FACTOR_HIGH_BORDER
+        self.__load_factor = load_factor
+        self.__insert_type = insert_type
 
-        # отсоритрованный по возрастанию массив операций
-        # self.__operations = sorted(operations, key=lambda operation: operation.get_duration())
+        # self.__load_factor_low_border = WorkCentersGeneratorConstants.LOAD_FACTOR_LOW_BORDER
+        # self.__load_factor_high_border = WorkCentersGeneratorConstants.LOAD_FACTOR_HIGH_BORDER
+
         self.__operations = operations
 
         self.__generated_centers = []
@@ -26,16 +26,22 @@ class WorkCentersGenerator:
         else:
             k = 0
             calc = int(len(self.__operations) / self.__amount_to_generate)
-            amount_of_operations_in_each = calc if len(self.__operations) / self.__amount_to_generate == 0 else calc + 1
+            amount_of_operations_in_each = calc \
+                if len(self.__operations) / self.__amount_to_generate == 0 \
+                else calc + 1
+
             for i in range(self.__amount_to_generate):
                 left_border = amount_of_operations_in_each * k
                 right_border = left_border + amount_of_operations_in_each
 
                 machines = MachinesGenerator(self.__amount_of_machines_in_each).generate()
-                load_factor = round(random.uniform(self.__load_factor_low_border, self.__load_factor_high_border), 2)
+                # load_factor = round(random.uniform(self.__load_factor_low_border, self.__load_factor_high_border), 2)
 
                 self.__generated_centers.append(
-                    WorkCenter(machines, self.__operations[left_border:right_border], load_factor)
+                    WorkCenter(machines,
+                               self.__operations[left_border:right_border],
+                               self.__load_factor,
+                               self.__insert_type)
                 )
 
                 k += 1
