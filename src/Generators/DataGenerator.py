@@ -10,7 +10,9 @@ from src.Util.Constants.GeneralConstants import GeneralConstants
 
 
 class DataGenerator:
-    def __init__(self):
+    def __init__(self, insert_type):
+        self.__insert_type = insert_type
+
         self.__jobs: List[List[Job]] = []
         self.__operations: List[List[Operation]] = []
         self.__departments: List[Department] = []
@@ -27,7 +29,7 @@ class DataGenerator:
                 DepartmentsGenerator(
                     GeneralConstants.WORK_CENTERS_TO_GENERATE_IN_EACH_DEPARTMENT,
                     jobs,
-                    insert_type=1)
+                    self.__insert_type)
                     .generate()
             )
             # for dpt in departments:
@@ -76,7 +78,7 @@ class DataGenerator:
     def print_data_to_file(self, path_to_file="../generated_data.txt"):
         self.generate()
 
-        data_file = open(path_to_file, "w+", encoding="utf-8")
+        data_file = open(path_to_file, "a+", encoding="utf-8")
 
         # for list_of_jobs in self.__jobs:
         #     for job in list_of_jobs:
@@ -97,7 +99,8 @@ class DataGenerator:
             # data_file.write("Relative overall amount of discretes: " + str(plan) + "\n")
             plans.append(plan)
 
-        data_file.write("Max amount of discretes: " + str(max(plans)))
+        data_file.write("Max amount of discretes: " + str(max(plans)) + "\n")
 
 
-DataGenerator().print_data_to_file()
+DataGenerator(0).print_data_to_file()
+DataGenerator(1).print_data_to_file()
