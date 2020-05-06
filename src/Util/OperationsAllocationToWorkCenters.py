@@ -16,12 +16,11 @@ class OperationsAllocationToWorkCenters:
                   amount_of_operations_in_each: int, insert_type=0):
 
         if insert_type == 0:
-            OperationsAllocationToWorkCenters.naive_insertion(amount_of_work_centers,
-                                                              operations,
-                                                              amount_of_operations_in_each)
+            return OperationsAllocationToWorkCenters.naive_insertion(amount_of_work_centers,
+                                                                     operations,
+                                                                     amount_of_operations_in_each)
         elif insert_type == 1:
-            OperationsAllocationToWorkCenters.optimal_insertion(amount_of_work_centers,
-                                                                operations)
+            return OperationsAllocationToWorkCenters.optimal_insertion(amount_of_work_centers, operations)
 
     @staticmethod
     def naive_insertion(amount_of_work_centers: int, operations: List[Operation], amount_of_operations_in_each: int):
@@ -37,8 +36,8 @@ class OperationsAllocationToWorkCenters:
 
     @staticmethod
     def optimal_insertion(amount_of_work_centers: int, operations: List[Operation]):
-        operations_chunks = [[] for _ in range(amount_of_work_centers)]
-        operations_chunks_durations = [0] * amount_of_work_centers
+        operations_chunks: List[List[Operation]] = [[] for _ in range(amount_of_work_centers)]
+        operations_chunks_durations = [0.0] * amount_of_work_centers
         len_operations = len(operations)
 
         while len_operations > 0:
@@ -49,8 +48,7 @@ class OperationsAllocationToWorkCenters:
                 operations_chunks[i] = []
             operations_chunks[i].append(current_operation)
 
-            operations_chunks_durations[i] += current_operation.get_duration()
+            operations_chunks_durations[i] = round(operations_chunks_durations[i] + current_operation.get_duration(), 1)
             len_operations -= 1
 
         return operations_chunks
-

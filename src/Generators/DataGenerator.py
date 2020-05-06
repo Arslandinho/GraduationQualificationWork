@@ -26,7 +26,9 @@ class DataGenerator:
             self.__departments.extend(
                 DepartmentsGenerator(
                     GeneralConstants.WORK_CENTERS_TO_GENERATE_IN_EACH_DEPARTMENT,
-                    jobs).generate()
+                    jobs,
+                    insert_type=1)
+                    .generate()
             )
             # for dpt in departments:
             #     data_file.write("Amount of work centers generated: " + str(dpt.get_amount_of_work_centers()) + "\n\n")

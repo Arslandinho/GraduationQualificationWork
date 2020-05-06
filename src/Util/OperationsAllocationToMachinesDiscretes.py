@@ -6,9 +6,11 @@ class OperationsAllocationToMachinesDiscretes:
     # types: 0 - naive, 1 - optimal
     def insertion(machines, operations, discretes, load_factor, insert_type=0):
         if insert_type == 0:
-            OperationsAllocationToMachinesDiscretes.naive_insertion(machines, operations, discretes, load_factor)
+            return \
+                OperationsAllocationToMachinesDiscretes.naive_insertion(machines, operations, discretes, load_factor)
         elif insert_type == 1:
-            OperationsAllocationToMachinesDiscretes.optimal_insertion(machines, operations, discretes, load_factor)
+            return \
+                OperationsAllocationToMachinesDiscretes.optimal_insertion(machines, operations, discretes, load_factor)
 
     @staticmethod
     def naive_insertion(machines, operations, discretes, load_factor):

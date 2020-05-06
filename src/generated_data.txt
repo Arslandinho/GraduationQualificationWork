@@ -1,1 +1,1 @@
-Max amount of discretes: 10
+Max amount of discretes: 9
