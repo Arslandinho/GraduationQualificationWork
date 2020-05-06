@@ -1,21 +1,20 @@
 from src.Entities.Discrete import Discrete
 
 
-class OperationsAllocation:
+class OperationsAllocationToMachinesDiscretes:
     @staticmethod
     # types: 0 - naive, 1 - optimal
-    def insertion(machines, operations, load_factor, insert_type=0):
+    def insertion(machines, operations, discretes, load_factor, insert_type=0):
         if insert_type == 0:
-            OperationsAllocation.naive_insertion(machines, operations, load_factor)
+            OperationsAllocationToMachinesDiscretes.naive_insertion(machines, operations, discretes, load_factor)
         elif insert_type == 1:
-            OperationsAllocation.optimal_insertion(machines, operations, load_factor)
+            OperationsAllocationToMachinesDiscretes.optimal_insertion(machines, operations, discretes, load_factor)
 
     @staticmethod
-    def naive_insertion(machines, operations, load_factor):
-        discretes = []
-
+    def naive_insertion(machines, operations, discretes, load_factor):
         calc = int(len(operations) / len(machines))
         amount_of_operations_in_each = calc if len(operations) % len(machines) == 0 else calc + 1
+
         k = 0
         for machine in machines:
             left_border = amount_of_operations_in_each * k
@@ -42,10 +41,6 @@ class OperationsAllocation:
             discretes.append(temp_discretes)
             z += 1
 
-        return discretes
-
     @staticmethod
-    def optimal_insertion(machines, operations, load_factor):
-        discretes = []
-
-        return discretes
+    def optimal_insertion(machines, operations, discretes, load_factor):
+        pass

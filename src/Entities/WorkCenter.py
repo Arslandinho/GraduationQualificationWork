@@ -4,7 +4,8 @@ from typing import List
 from src.Entities.Discrete import Discrete
 from src.Entities.Machine import Machine
 from src.Entities.Operation import Operation
-from src.OperationsAllocation import OperationsAllocation
+from src.Util.OperationsAllocationToMachinesDiscretes \
+    import OperationsAllocationToMachinesDiscretes as OperationsAllocate
 
 
 class WorkCenter:
@@ -16,7 +17,11 @@ class WorkCenter:
         self.__discretes = []
 
         if self.__machines and self.__operations and (insert_type == 0 or insert_type == 1):
-            OperationsAllocation.insertion(self.__machines, self.__operations, self.__load_factor, insert_type)
+            OperationsAllocate.insertion(self.__machines,
+                                         self.__operations,
+                                         self.__discretes,
+                                         self.__load_factor,
+                                         insert_type)
 
     def add_machine(self, machine: Machine):
         self.__machines.append(machine)
