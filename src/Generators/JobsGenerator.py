@@ -19,7 +19,7 @@ class JobsGenerator:
         if self.__generated_jobs:
             return self.__generated_jobs
         else:
-            jobs_amount = GeneralConstants.PLAN_PERIOD_LONGITUDE
+            jobs_amount = GeneralConstants.PLAN_PERIOD_LONGITUDE * 100
 
             i = 0
             while jobs_amount >= GeneralConstants.PLAN_DISCRETE:

@@ -25,7 +25,7 @@ class Department:
 
     def get_plan(self):
         for work_center in self.__work_centers:
-            self.__plan_discretes.append(work_center.get_overall_amount_of_discretes())
+            self.__plan_discretes.append(work_center.get_discretes())
         return self.__plan_discretes
 
     def add_discretion(self, discretion: Discrete):

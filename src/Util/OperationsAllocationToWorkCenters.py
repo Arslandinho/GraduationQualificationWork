@@ -1,29 +1,28 @@
 from typing import List
 
-import numpy as np
-
 from src.Entities.Operation import Operation
-from src.Entities.WorkCenter import WorkCenter
-from src.Generators.JobsGenerator import JobsGenerator
-from src.Generators.MachinesGenerator import MachinesGenerator
-from src.Generators.OperationsGenerator import OperationsGenerator
 
 
 class OperationsAllocationToWorkCenters:
     @staticmethod
     # types: 0 - naive, 1 - optimal
-    def insertion(amount_of_work_centers: int, operations: List[Operation],
-                  amount_of_operations_in_each: int, insert_type=0):
+    def insertion(amount_of_work_centers: int,
+                  operations: List[Operation],
+                  insert_type=0):
 
         if insert_type == 0:
             return OperationsAllocationToWorkCenters.naive_insertion(amount_of_work_centers,
-                                                                     operations,
-                                                                     amount_of_operations_in_each)
+                                                                     operations)
         elif insert_type == 1:
             return OperationsAllocationToWorkCenters.optimal_insertion(amount_of_work_centers, operations)
 
     @staticmethod
-    def naive_insertion(amount_of_work_centers: int, operations: List[Operation], amount_of_operations_in_each: int):
+    def naive_insertion(amount_of_work_centers: int,
+                        operations: List[Operation]):
+
+        calc = int(len(operations) / amount_of_work_centers)
+        amount_of_operations_in_each = calc if len(operations) / amount_of_work_centers == 0 else calc + 1
+
         operations_chunks = []
 
         for i in range(amount_of_work_centers):
@@ -48,7 +47,8 @@ class OperationsAllocationToWorkCenters:
                 operations_chunks[i] = []
             operations_chunks[i].append(current_operation)
 
-            operations_chunks_durations[i] = round(operations_chunks_durations[i] + current_operation.get_duration(), 1)
+            operations_chunks_durations[i] = \
+                round(operations_chunks_durations[i] + current_operation.get_duration(), 1)
             len_operations -= 1
 
         return operations_chunks

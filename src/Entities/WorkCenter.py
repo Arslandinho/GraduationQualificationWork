@@ -4,24 +4,19 @@ from typing import List
 from src.Entities.Discrete import Discrete
 from src.Entities.Machine import Machine
 from src.Entities.Operation import Operation
-from src.Util.OperationsAllocationToMachinesDiscretes \
-    import OperationsAllocationToMachinesDiscretes as OperationsAllocate
 
 
 class WorkCenter:
-    def __init__(self, machines: List[Machine], operations: List[Operation], load_factor: float, insert_type: int):
+    def __init__(self,
+                 machines: List[Machine],
+                 operations: List[Operation],
+                 load_factor: float):
+
         self.__load_factor = load_factor
 
         self.__machines = machines
         self.__operations = operations
         self.__discretes = []
-
-        if self.__machines and self.__operations and (insert_type == 0 or insert_type == 1):
-            OperationsAllocate.insertion(self.__machines,
-                                         self.__operations,
-                                         self.__discretes,
-                                         self.__load_factor,
-                                         insert_type)
 
     def add_machine(self, machine: Machine):
         self.__machines.append(machine)
@@ -38,8 +33,8 @@ class WorkCenter:
     def get_load_factor(self) -> float:
         return self.__load_factor
 
-    def get_discretes(self) -> List[List[Discrete]]:
-        return self.__discretes
+    def add_discretes(self, discretes: List[Discrete]):
+        self.__discretes.extend(discretes)
 
-    def get_overall_amount_of_discretes(self) -> int:
-        return len(max(self.__discretes, key=len))
+    def get_discretes(self) -> List[Discrete]:
+        return self.__discretes
