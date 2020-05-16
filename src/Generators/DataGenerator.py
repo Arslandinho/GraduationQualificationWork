@@ -1,7 +1,9 @@
+import math
 from typing import List
 
 import time
-from pathlib import Path
+
+import numpy as np
 
 from src.Entities.Department import Department
 from src.Entities.Job import Job
@@ -22,7 +24,7 @@ class DataGenerator:
         self.__departments_optimal: List[Department] = []
 
     def generate(self):
-        for i in range(1000):
+        for i in range(100):
             jobs = JobsGenerator().generate()
             operations = OperationsGenerator(jobs).generate()
 
@@ -30,7 +32,7 @@ class DataGenerator:
             self.__operations.append(operations)
 
         start_time = time.time()
-        for i in range(1000):
+        for i in range(100):
             self.__departments_naive.extend(
                 DepartmentsGenerator(
                     GeneralConstants.WORK_CENTERS_TO_GENERATE_IN_EACH_DEPARTMENT,
@@ -40,7 +42,7 @@ class DataGenerator:
         print("Naive algorithm finished within \n%s seconds" % (time.time() - start_time))
 
         start_time = time.time()
-        for i in range(1000):
+        for i in range(100):
             self.__departments_optimal.extend(
                 DepartmentsGenerator(
                     GeneralConstants.WORK_CENTERS_TO_GENERATE_IN_EACH_DEPARTMENT,
@@ -48,6 +50,66 @@ class DataGenerator:
                     1).generate()
             )
         print("Optimal algorithm finished within \n%s seconds" % (time.time() - start_time))
+
+    def calc(self, dprtmnt, flag=0):
+        discretes_operations_dict = {}
+        for jobs_list in self.__jobs:
+            for job in jobs_list:
+                discretes_operations_dict[job.get_name()] = []
+
+        # for dp in dprtmnt:
+        wcs = dprtmnt.get_all_work_centers()
+        for j in range(len(wcs)):
+            discrs = wcs[j].get_discretes()
+            for i in range(len(discrs)):
+                for operat in discrs[i].get_all_operations():
+                    if flag == 0:
+                        discretes_operations_dict[operat.get_job_name()].append((j, i))
+                    elif flag == 1:
+                        discretes_operations_dict[operat.get_job_name()].append((j, 1))
+
+        discretes_operations_dict_upd = {}
+        for k in discretes_operations_dict.keys():
+            if discretes_operations_dict[k]:
+                discretes_operations_dict_upd[k] = discretes_operations_dict[k]
+
+        sum_of_lag = 0
+        for job_name in discretes_operations_dict_upd.keys():
+            init_amount_of_intervals = self.get_right_job(job_name).get_amount_of_intervals()
+            opers = discretes_operations_dict_upd[job_name]
+
+            res = [tuple(sub) for sub in opers]
+            res_as_dict = {}
+
+            actual_amount_of_intervals = 0
+            if flag == 0:
+                actual_amount_of_intervals = len(list(set(res)))
+            elif flag == 1:
+                for r in res:
+                    if r[0] in res_as_dict:
+                        res_as_dict[r[0]] = res_as_dict[r[0]] + 1
+                    else:
+                        res_as_dict[r[0]] = 1
+
+                # x = {k: v for k, v in res_as_dict.items() if v is not None}
+                # print(len(x))
+                actual_amount_of_intervals = max(list(res_as_dict.values()))
+
+            with open('../result.txt', 'a+', encoding="utf-8") as f:
+                print("flag: " + str(flag), file=f)
+                print("actual_amount_of_intervals: " + str(actual_amount_of_intervals), file=f)
+                print("init_amount_of_intervals: " + str(init_amount_of_intervals), file=f)
+                print("\n", file=f)
+
+            sum_of_lag += max(0, actual_amount_of_intervals + 1 - init_amount_of_intervals)
+
+        return sum_of_lag
+
+    def get_right_job(self, key):
+        for jobs_list in self.__jobs:
+            for job in jobs_list:
+                if job.get_name() == key:
+                    return job
 
     def get_generated_jobs(self):
         if not self.__jobs:
@@ -70,10 +132,30 @@ class DataGenerator:
     def print_data_to_file(self, path_to_file="../generated_data.txt"):
         self.generate()
 
-        import os
-        os.remove(path_to_file)
+        print("\nnaive: ")
+        sum_n = 0
+        list_of_calcs_n = []
+        for dpt in self.__departments_naive:
+            calc_result = self.calc(dpt)
+            sum_n += calc_result
+            list_of_calcs_n.append(calc_result)
+        print("sum naive: " + str(sum_n))
+        print(list_of_calcs_n)
 
-        data_file = open(path_to_file, "a+", encoding="utf-8")
+        print("\noptimal: ")
+        sum_o = 0
+        list_of_calcs_o = []
+        for dpt in self.__departments_optimal:
+            calc_result = self.calc(dpt, 1)
+            sum_o += calc_result
+            list_of_calcs_o.append(calc_result)
+        print("sum optimal: " + str(sum_o))
+        print(list_of_calcs_o)
+
+        import os
+        # os.remove(path_to_file)
+
+        data_file = open(path_to_file, "w+", encoding="utf-8")
 
         # for list_of_jobs in self.__jobs:
         #     for job in list_of_jobs:

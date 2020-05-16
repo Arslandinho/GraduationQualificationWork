@@ -1,9 +1,7 @@
 from typing import List
 
 from src.Entities.Discrete import Discrete
-from src.Entities.Operation import Operation
 from src.Entities.WorkCenter import WorkCenter
-from src.Util.Constants.GeneralConstants import GeneralConstants
 
 
 class OperationsAllocationToDiscretes:
@@ -51,6 +49,10 @@ class OperationsAllocationToDiscretes:
             discretes.append(temp_discretes)
             z += 1
 
+        # for discs in discretes:
+        #     for disc in discs:
+        #         print(disc.get_id())
+
         return discretes
 
     @staticmethod
@@ -60,6 +62,7 @@ class OperationsAllocationToDiscretes:
         z = 1
         for center in work_centers:
             operations = sorted(center.get_all_operations(), key=lambda oper: oper.get_duration())
+
             discrete = Discrete(load_factor)
             temp_discretes = []
 
@@ -75,5 +78,9 @@ class OperationsAllocationToDiscretes:
 
             discretes.append(temp_discretes)
             z += 1
+
+        # for discs in discretes:
+        #     for disc in discs:
+        #         print(disc.get_id())
 
         return discretes

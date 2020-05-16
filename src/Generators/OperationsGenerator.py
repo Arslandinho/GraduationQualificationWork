@@ -26,6 +26,14 @@ class OperationsGenerator:
                 operations = self.__split_job_into_chunks_2_4(job)
                 job.add_operations(operations)
 
+                k = 1
+                for operation in operations:
+                    operation.set_id(k)
+                    k += 1
+                    operation.set_job_name(job.get_name())
+
+                operations[-1].assign_as_last()
+
                 self.__generated_operations.extend(operations)
 
             return self.__generated_operations

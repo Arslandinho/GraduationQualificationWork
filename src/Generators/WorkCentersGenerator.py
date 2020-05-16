@@ -52,7 +52,8 @@ class WorkCentersGenerator:
                 )
 
             discretes = OperationsAllocateDiscretes.insertion(self.__generated_centers,
-                                                              self.__load_factor)
+                                                              self.__load_factor,
+                                                              self.__insert_type)
 
             for center in self.__generated_centers:
                 center.add_discretes(discretes.pop(0))
