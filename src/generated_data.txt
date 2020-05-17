@@ -1,2 +1,0 @@
-Max amount of discretes (naive algorithm): 10
-Max amount of discretes (optimal algorithm): 10
