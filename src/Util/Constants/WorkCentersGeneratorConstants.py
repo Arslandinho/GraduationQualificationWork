@@ -1,0 +1,4 @@
+class WorkCentersGeneratorConstants:
+    AMOUNT_OF_MACHINES_IN_EACH = 1
+    LOAD_FACTOR_LOW_BORDER = 0.75
+    LOAD_FACTOR_HIGH_BORDER = 1.0
